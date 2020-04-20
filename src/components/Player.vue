@@ -1,13 +1,14 @@
 <template>
     <div>
-        <PlayerList :players="players"/>
-        <PlayerAdding @add-player="addPlayer"/>
+        <PlayerList/>
+        <PlayerAdding/>
         <div>Il y a {{ playerCounterFromComputed }} joueurs.</div>
         <div>Il y a {{ playerCounterFromWatch }} joueurs.</div>
     </div>
 </template>
 
 <script>
+    import Vuex from "vuex";
     import PlayerList from "./PlayerList";
     import PlayerAdding from "./PlayerAdding";
 
@@ -19,15 +20,14 @@
         },
         data() {
             return {
-                players: [],
                 playerCounterFromWatch: 0
             }
         },
         beforeMount() {
-            this.players = [{firstName: 'John', surname: 'Doe'}, {firstName: 'Noé', surname: 'Pamula'}];
             this.playerCounterFromWatch = this.players.length;
         },
         computed: {
+            ...Vuex.mapGetters({players: "players"}),
             playerCounterFromComputed() {
                 return this.players.length;
             }
@@ -35,11 +35,6 @@
         watch: {
             players() {
                 this.playerCounterFromWatch = this.players.length;
-            }
-        },
-        methods: {
-            addPlayer(firstName, surname) {
-                this.players.push({firstName: firstName, surname: surname});
             }
         }
     }

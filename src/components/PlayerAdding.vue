@@ -17,10 +17,10 @@
         },
         methods: {
             addPlayer() {
-                this.$emit('add-player', this.firstName, this.surname);
+                this.$store.commit('ADD_PLAYER', {firstName: this.firstName, surname: this.surname});
+                // this.$store.dispatch('addPlayer', { firstName: this.firstName, surname: this.surname });
                 this.firstName = '';
                 this.surname = '';
-
             }
         }
     }

@@ -7,8 +7,12 @@
 </template>
 
 <script>
+    import Vuex from "vuex";
+
     export default {
         name: 'PlayerList',
-        props: ['players']
+        computed: {
+            ...Vuex.mapGetters({players: "players"})
+        }
     }
 </script>
